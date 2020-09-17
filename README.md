@@ -3,7 +3,7 @@ My Learning Project of Smartconfig for ESP8266-WiFi
 
 Looking for my study notes? see: [https://www.imsry.cn/posts/bf40eeb6.html](http://www.imsry.cn/posts/bf40eeb6.html)
 
-Finally. the sdk package born up. （Code is migrated from https://github.com/EspressifApp/EsptouchForAndroid）
+Finally. the sdk package born up. （ Code is migrated from https://github.com/EspressifApp/EsptouchForAndroid ）
 
 ## SDK-Usage:
 
