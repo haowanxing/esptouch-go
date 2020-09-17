@@ -1,8 +1,8 @@
 package main
 
 import (
-	"esptouch/protocol"
 	"fmt"
+	"github.com/haowanxing/esptouch-go/protocol"
 	"log"
 	"net"
 	"time"

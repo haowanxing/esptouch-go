@@ -1,7 +1,7 @@
 package main
 
 import (
-	"esptouch"
+	"github.com/haowanxing/esptouch-go"
 	"log"
 )
 

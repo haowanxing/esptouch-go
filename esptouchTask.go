@@ -2,10 +2,10 @@ package esptouch
 
 import (
 	"errors"
-	"esptouch/protocol"
-	"esptouch/task"
-	"esptouch/utils/byteutil"
 	"fmt"
+	"github.com/haowanxing/esptouch-go/protocol"
+	"github.com/haowanxing/esptouch-go/task"
+	"github.com/haowanxing/esptouch-go/utils/byteutil"
 	"log"
 	"net"
 	"time"

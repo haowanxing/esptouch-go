@@ -1,8 +1,8 @@
 package protocol
 
 import (
-	"esptouch/utils"
-	"esptouch/utils/byteutil"
+	"github.com/haowanxing/esptouch-go/utils"
+	"github.com/haowanxing/esptouch-go/utils/byteutil"
 )
 
 const (

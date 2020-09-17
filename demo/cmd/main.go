@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/hex"
-	"esptouch"
 	"flag"
 	"fmt"
+	"github.com/haowanxing/esptouch-go"
 	"log"
 	"strings"
 )

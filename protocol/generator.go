@@ -1,7 +1,7 @@
 package protocol
 
 import (
-	"esptouch/utils/byteutil"
+	"github.com/haowanxing/esptouch-go/utils/byteutil"
 	"net"
 	"strconv"
 	"strings"
