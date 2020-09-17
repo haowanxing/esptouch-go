@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ESPTouch-Demo/protocol/esptouchgenerator"
+	"esptouch/protocol"
 	"fmt"
 	"log"
 	"net"
@@ -13,9 +13,9 @@ var (
 	broadcast     bool
 )
 
-func main() {
-	//broadcast = false
-	broadcast = true
+func main1() {
+	broadcast = false
+	//broadcast = true
 	mIntervalGuideCodeMillisecond := int64(8)
 	mIntervalDataCodeMillisecond := int64(8)
 	mTimeoutGuideCodeMillisecond := int64(2000)
@@ -25,24 +25,20 @@ func main() {
 	mInterrupt := false
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("Administrators"), []byte{0xf0, 0xb4, 0x29, 0x5c, 0xea, 0x0b}, []byte("123qweasdzxc"), []byte{192, 168, 123, 196})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("WiWide"), []byte{0x00,0x1f,0x7a,0x7b,0xed,0x70}, []byte("wiwide123456"), []byte{10, 11, 98, 45})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c,0x50,0x77,0x73,0x37,0xb0}, []byte("400302100"), []byte{172, 16, 104, 115})
+	eg := protocol.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c, 0x50, 0x77, 0x73, 0x37, 0xb0}, []byte("400302100"), []byte{172, 16, 104, 145})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c,0x50,0x77,0x73,0x37,0xb0}, []byte("400302100"), []byte{192 ,168, 3, 90})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c,0x50,0x77,0x73,0x37,0xb0}, []byte("wiwide"), []byte{172, 16, 104, 145})
-	eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden"), []byte{0x00, 0x1f, 0x7a, 0x7b, 0xed, 0x70}, []byte("wiwide123456"), []byte{10, 11, 98, 45})
+	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden"), []byte{0x00, 0x1f, 0x7a, 0x7b, 0xed, 0x70}, []byte("wiwide123456"), []byte{10, 11, 98, 45})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("Wiwide-Office"),[]byte{0x00,0x1f,0x7a,0x71,0x93,0xb0},[]byte("4006500311"),[]byte{10,11,146,45})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden2"),[]byte{0x00,0x1f,0x7a,0x59,0x4b,0x00},[]byte("12345678"),[]byte{172, 16, 189, 50})
+	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden2"), []byte{0x00, 0x1f, 0x7a, 0x59, 0x4b, 0x08}, []byte("12345678"), []byte{172, 16, 235, 219})
 	gc := eg.GetGCBytes2()
 	dc := eg.GetDCBytes2()
 
 	laddr := &net.UDPAddr{
-		IP:   net.IPv4(10, 11, 98, 45),
+		IP:   nil,
 		Port: 18266,
 	}
-	raddr := &net.UDPAddr{
-		IP:   net.IPv4(255, 255, 255, 255),
-		Port: 7001,
-	}
-	conn, err := net.DialUDP("udp", laddr, raddr)
+	conn, err := net.ListenUDP("udp", laddr)
 	if err != nil {
 		panic(err)
 	}
@@ -95,23 +91,19 @@ func main() {
 		}
 	}
 end:
-	_ = conn.Close()
+	//_ = conn.Close()
 }
 
 func sendData(conn *net.UDPConn, data [][]byte, offset, count, interval int64) {
+	target := getTargetIP()
 	for i := offset; i < offset+count; i++ {
 		if len(data[i]) == 0 {
 			continue
 		}
-		/*_, _ = conn.WriteToUDP(data[i], &net.UDPAddr{
-			IP:   getTargetIP(),
+		_, _ = conn.WriteToUDP(data[i], &net.UDPAddr{
+			IP:   target,
 			Port: 7001,
-		})*/
-		//_, _ = conn.WriteTo(data[i], &net.TCPAddr{
-		//	IP:   net.IPv4(234, addrByte, addrByte, addrByte),
-		//	Port: 7001,
-		//})
-		_, _ = conn.Write(data[i])
+		})
 		time.Sleep(time.Millisecond * time.Duration(interval))
 	}
 }
@@ -130,17 +122,9 @@ func getTargetIP() net.IP {
 	return net.IPv4(234, addrByte, addrByte, addrByte)
 }
 
-func receiveData(r chan<- bool, conn net.Conn) {
-	//listen, err := net.ListenUDP("udp", &net.UDPAddr{
-	//	IP:   net.IPv4(0, 0, 0, 0),
-	//	Port: 18266,
-	//})
-	//if err != nil {
-	//	panic(err)
-	//}
-	var data [1024]byte
-	n, err := conn.Read(data[:])
-	//n, addr, err := listen.ReadFromUDP(data[:])
+func receiveData(r chan<- bool, conn *net.UDPConn) {
+	var data [128]byte
+	n, _, err := conn.ReadFromUDP(data[:])
 	if err != nil {
 		log.Println("read udp err", err, n)
 	}

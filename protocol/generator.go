@@ -1,9 +1,10 @@
-package esptouchgenerator
+package protocol
 
 import (
-	"ESPTouch-Demo/protocol/datumcode"
-	"ESPTouch-Demo/protocol/guidecode"
-	"ESPTouch-Demo/utils/byteutil"
+	"esptouch/utils/byteutil"
+	"net"
+	"strconv"
+	"strings"
 )
 
 type EsptouchGenerator struct {
@@ -11,15 +12,20 @@ type EsptouchGenerator struct {
 	mDcBytes2 [][]byte
 }
 
-func NewEsptouchGenerator(apSsid, apBssid, apPassword, ipAddress []byte) *EsptouchGenerator {
-	gc := guidecode.NewGuideCode()
+func NewEsptouchGenerator(apSsid, apBssid, apPassword []byte, ipAddress net.IP) *EsptouchGenerator {
+	var ipBytes = []byte{255, 255, 255, 255}
+	for k, v := range strings.Split(ipAddress.String(), ".") {
+		i, _ := strconv.Atoi(v)
+		ipBytes[k] = byte(i)
+	}
+	gc := NewGuideCode()
 	gcU81 := gc.GetU8s()
 	mGcBytes2 := make([][]byte, len(gcU81))
 	for i := 0; i < len(gcU81); i++ {
 		mGcBytes2[i] = byteutil.GenSpecBytes(gcU81[i])
 	}
 
-	dc := datumcode.NewDatumCode(apSsid, apBssid, apPassword, ipAddress)
+	dc := NewDatumCode(apSsid, apBssid, apPassword, ipBytes)
 	dcU81 := dc.GetU8s()
 	mDcBytes2 := make([][]byte, len(dcU81))
 	for i := 0; i < len(dcU81); i++ {

@@ -1,4 +1,4 @@
-package datumcode
+package protocol
 
 import (
 	"encoding/binary"

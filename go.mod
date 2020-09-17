@@ -1,3 +1,3 @@
-module ESPTouch-Demo
+module esptouch
 
 go 1.13

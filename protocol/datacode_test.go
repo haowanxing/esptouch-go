@@ -1,4 +1,4 @@
-package datacode
+package protocol
 
 import (
 	"testing"

@@ -1,7 +1,9 @@
-package datacode
+package protocol
 
-import "ESPTouch-Demo/utils/byteutil"
-import "ESPTouch-Demo/utils"
+import (
+	"esptouch/utils"
+	"esptouch/utils/byteutil"
+)
 
 const (
 	DATA_CODE_LEN = 6
