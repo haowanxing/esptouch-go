@@ -1,4 +1,4 @@
-package guidecode
+package protocol
 
 const (
 	GUIDE_CODE_LEN = 4

@@ -1,4 +1,4 @@
-package esptouchgenerator
+package protocol
 
 import (
 	"fmt"
