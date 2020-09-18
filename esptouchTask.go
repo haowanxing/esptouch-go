@@ -166,12 +166,13 @@ func (p *EsptouchTask) execute(generator *protocol.EsptouchGenerator) bool {
 }
 
 func (p *EsptouchTask) sendData(data [][]byte, offset, count int64, interval int64) {
+	ip := net.ParseIP(p.parameter.GetTargetHostname())
 	for i := offset; i < offset+count; i++ {
 		if len(data[i]) == 0 {
 			continue
 		}
 		_, _ = p.udpClient.WriteToUDP(data[i], &net.UDPAddr{
-			IP:   net.ParseIP(p.parameter.GetTargetHostname()),
+			IP:   ip,
 			Port: p.parameter.GetTargetPort(),
 		})
 		time.Sleep(time.Millisecond * time.Duration(interval))
