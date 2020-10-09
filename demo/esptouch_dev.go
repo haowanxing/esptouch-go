@@ -24,12 +24,8 @@ func main1() {
 	mWaitUdpSendingMillisecond := int64(45000)
 	mInterrupt := false
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("Administrators"), []byte{0xf0, 0xb4, 0x29, 0x5c, 0xea, 0x0b}, []byte("123qweasdzxc"), []byte{192, 168, 123, 196})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("WiWide"), []byte{0x00,0x1f,0x7a,0x7b,0xed,0x70}, []byte("wiwide123456"), []byte{10, 11, 98, 45})
 	eg := protocol.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c, 0x50, 0x77, 0x73, 0x37, 0xb0}, []byte("400302100"), []byte{172, 16, 104, 145})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c,0x50,0x77,0x73,0x37,0xb0}, []byte("400302100"), []byte{192 ,168, 3, 90})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("jiajiajia"), []byte{0x4c,0x50,0x77,0x73,0x37,0xb0}, []byte("wiwide"), []byte{172, 16, 104, 145})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden"), []byte{0x00, 0x1f, 0x7a, 0x7b, 0xed, 0x70}, []byte("wiwide123456"), []byte{10, 11, 98, 45})
-	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("Wiwide-Office"),[]byte{0x00,0x1f,0x7a,0x71,0x93,0xb0},[]byte("4006500311"),[]byte{10,11,146,45})
 	//eg := esptouchgenerator.NewEsptouchGenerator([]byte("wihidden2"), []byte{0x00, 0x1f, 0x7a, 0x59, 0x4b, 0x08}, []byte("12345678"), []byte{172, 16, 235, 219})
 	gc := eg.GetGCBytes2()
 	dc := eg.GetDCBytes2()
