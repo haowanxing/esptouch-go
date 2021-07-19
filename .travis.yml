@@ -1,0 +1,10 @@
+language: go
+go:
+  - 1.16.x
+script:
+  - go test -v ./...
+notifications:
+  email:
+    recipients:
+      - haowanxing@163.com
+    on_success: always
